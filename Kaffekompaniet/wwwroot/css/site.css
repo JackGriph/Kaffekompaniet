@@ -69,3 +69,30 @@ th, td {
   text-align: left;
   border-bottom: 1px solid var(--kant);
 }
+
+/* Layout: skip-link för tangentbordsanvändare */
+.skip-link {
+  position: absolute;
+  left: -9999px;
+}
+
+.skip-link:focus {
+  left: 1rem;
+  top: 1rem;
+  padding: 0.5rem 1rem;
+  background: var(--bakgrund);
+  border: 2px solid var(--accent);
+}
+
+.site-name {
+  margin: 0 0 0.5rem;
+  font-size: 1.5rem;
+}
+
+.site-name a {
+  text-decoration: none;
+}
+
+nav a[aria-current] {
+  font-weight: bold;
+}

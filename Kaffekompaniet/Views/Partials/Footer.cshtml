@@ -1,0 +1,18 @@
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage
+@*
+    Sidfoten hämtar texterna från Startsidans fält siteName, address och openingHours.
+    Tomma eller saknade fält hoppas över.
+*@
+@{
+    var root = Model.Root();
+    var siteName = root.Value<string>("siteName");
+    var parts = new[]
+    {
+        string.IsNullOrWhiteSpace(siteName) ? root.Name : siteName,
+        root.Value<string>("address"),
+        root.Value<string>("openingHours")
+    }.Where(x => !string.IsNullOrWhiteSpace(x));
+}
+<footer>
+    <p>@string.Join(" · ", parts)</p>
+</footer>
