@@ -1,0 +1,11 @@
+# Mac / editorer
+.DS_Store
+.idea/
+.vscode/*
+!.vscode/extensions.json
+!.vscode/launch.json
+
+# Node / Sass
+node_modules/
+
+# Umbraco-specifika regler finns i src/Kaffekompaniet.Web/.gitignore
