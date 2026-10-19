@@ -8,4 +8,7 @@
 # Node / Sass
 node_modules/
 
-# Umbraco-specifika regler finns i src/Kaffekompaniet.Web/.gitignore
+# Umbraco-specifika regler finns i Kaffekompaniet/.gitignore
+
+# Lokala Claude-inställningar
+.claude/

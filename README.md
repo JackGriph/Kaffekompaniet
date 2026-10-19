@@ -11,30 +11,46 @@ Grupparbete: CMS-lösning i Umbraco för ett lokalt kafferosteri med butik.
 
 ## Kom igång första gången
 
-1. Installera [.NET 10 SDK](https://dotnet.microsoft.com/download/dotnet/10.0) och VS Code med tillägget **C# Dev Kit**.
-2. Klona repot och starta sajten:
+Målet är ett körande Umbraco-projekt där du är inloggad som administratör. Projektet är redan skapat (med `dotnet new umbraco --name Kaffekompaniet`), så du behöver bara klona och starta det.
 
-   ```bash
-   git clone <repo-url>
-   cd kaffekompaniet/src/Kaffekompaniet.Web
-   dotnet run
-   ```
+**Steg 1. Installera .NET SDK.** Umbraco 17 kräver .NET 10 SDK. Ladda ner det från [Microsofts nedladdningssida](https://dotnet.microsoft.com/download/dotnet/10.0) och kontrollera versionen:
 
-3. Öppna adressen som visas i terminalen (t.ex. `https://localhost:44393`) och gå igenom installationen. Välj **SQLite** och skapa ditt eget lokala admin-konto.
-4. När sajten startar importerar uSync automatiskt dokumenttyper, datatyper och mallar från mappen `uSync/`.
+```bash
+dotnet --version
+```
 
-Du kan också starta från VS Code med **Run and Debug → Starta Kaffekompaniet**.
+Utskriften ska börja på 10.
+
+**Steg 2. Klona repot.**
+
+```bash
+git clone <repo-url>
+```
+
+**Steg 3. Starta projektet.**
+
+```bash
+cd kaffekompaniet/Kaffekompaniet
+dotnet run
+```
+
+Terminalen skriver ut en lokal webbadress, t.ex. `https://localhost:44xxx`. Öppna den i webbläsaren. Håll terminalen öppen så länge du arbetar, för stänger du den stannar webbplatsen.
+
+**Steg 4. Kör installationsguiden.** Fyll i namn, e-postadress och lösenord för ditt eget administratörskonto. Välj **SQLite** som databas och slutför guiden. Databasen hamnar i `umbraco/Data/` och committas inte, så alla har en egen.
+
+**Steg 5. Logga in i backoffice.** Guiden loggar in dig automatiskt. Annars öppnar du `/umbraco` på din lokala adress och loggar in med kontot du skapade. När sajten startar importerar uSync automatiskt dokumenttyper, datatyper och mallar från mappen `uSync/`.
+
+Du kan också starta från VS Code med **Run and Debug → Starta Kaffekompaniet** (tillägget **C# Dev Kit** behövs).
 
 ## Projektstruktur
 
 ```
 kaffekompaniet/
-├── Kaffekompaniet.slnx
-└── src/Kaffekompaniet.Web/   ← Umbraco-projektet
-    ├── uSync/v17/            ← CMS-inställningar som filer (committas)
-    ├── Views/                ← Razor-mallar
-    ├── wwwroot/              ← CSS, JS, bilder (inte media)
-    └── umbraco/Data/         ← lokal databas (ignoreras av git)
+└── Kaffekompaniet/        ← Umbraco-projektet
+    ├── uSync/v17/         ← CMS-inställningar som filer (committas)
+    ├── Views/             ← Razor-mallar
+    ├── wwwroot/           ← CSS, JS, bilder (inte media)
+    └── umbraco/Data/      ← lokal databas (ignoreras av git)
 ```
 
 ## uSync-inställningar
