@@ -1,6 +1,7 @@
 ﻿@using Umbraco.Cms.Web.Common.PublishedModels;
 @inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<ContentModels.Startsida>
 @using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
-@{
-	Layout = null;
-}
+
+@{Layout = "layout.cshtml";}
+<h1>@Model.Name</h1>
+@Model.Brodtext
