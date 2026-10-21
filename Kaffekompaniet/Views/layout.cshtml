@@ -2,7 +2,7 @@
 @inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage
 @*
     Gemensam layout för alla sidor (ägs av D).
-    Sidmallar använder den med: Layout = "layout.cshtml";
+    Sidmallar väljer Layout som Master template i backoffice.
     - Ingen h1 i layouten, varje sidmall har en egen h1.
     - Sajtnamn hämtas från root-noden, om det inte finns ett värde används root-nodens namn.
     - Skriver ut en skip-link för att hoppa till innehållet.
