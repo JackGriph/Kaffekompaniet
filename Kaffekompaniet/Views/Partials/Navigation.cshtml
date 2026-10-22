@@ -1,0 +1,29 @@
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage
+@*
+    Huvudmenyn byggs från sidträdet: Startsidan + dess synliga undersidor.
+    Nya sidor syns automatiskt. Kryssrutan umbracoNaviHide döljer en sida.
+    varför, svaret är att man vill dölja en sida från menyn men ändå kunna länka till den.
+*@
+@{
+    var root = Model.Root();
+    var items = new[] { root }.Concat(root.Children().Where(x => x.IsVisible()));
+    var currentPath = Model.Path.Split(',');
+}
+<nav aria-label="Huvudmeny">
+    <ul>
+        @foreach (var item in items)
+        {
+            // "page" = sidan du är på, "true" = en sektion du är inne i (t.ex. Vårt kaffe)
+            string? current = null;
+            if (item.Id == Model.Id)
+            {
+                current = "page";
+            }
+            else if (item.Id != root.Id && currentPath.Contains(item.Id.ToString()))
+            {
+                current = "true";
+            }
+            <li><a href="@item.Url()" aria-current="@current">@item.Name</a></li>
+        }
+    </ul>
+</nav>

@@ -1,0 +1,50 @@
+@using Umbraco.Cms.Web.Common.PublishedModels;
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage
+@*
+    Gemensam layout för alla sidor (ägs av D).
+    Sidmallar väljer Layout som Master template i backoffice.
+    - Ingen h1 i layouten, varje sidmall har en egen h1.
+    - Sajtnamn hämtas från root-noden, om det inte finns ett värde används root-nodens namn.
+    - Skriver ut en skip-link för att hoppa till innehållet.
+    - Seo: title-taggar läggs i sidmallarna, @section Head {...} används för att skriva ut title-taggar i layouten.
+    - CSS: site.css används som gemensam css för alla sidor, den ligger i wwwroot/css/site.css.
+*@
+@{
+    Layout = null;
+    var root = Model.Root();
+    var siteName = root.Value<string>("siteName");
+    if (string.IsNullOrWhiteSpace(siteName))
+    {
+        siteName = root.Name;
+    }
+}
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    @if (IsSectionDefined("Head"))
+    {
+        @RenderSection("Head")
+    }
+    else
+    {
+        <title>@Model.Name | @siteName</title>
+    }
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true">
+</head>
+<body>
+    <a class="skip-link" href="#main">Hoppa till innehållet</a>
+
+    <header>
+        <p class="site-name"><a href="@root.Url()">@siteName</a></p>
+        @await Html.PartialAsync("Navigation")
+    </header>
+
+    <main id="main" tabindex="-1">
+        @RenderBody()
+    </main>
+
+    @await Html.PartialAsync("Footer")
+</body>
+</html>
