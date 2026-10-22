@@ -1,0 +1,26 @@
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage
+@*
+    SEO-taggar i head (ägs av E).
+    Läser kompositionen SEO: seoTitle och metaDescription.
+*@
+@{
+    var root = Model.Root();
+    var siteName = root.Value<string>("siteName");
+    if (string.IsNullOrWhiteSpace(siteName))
+    {
+        siteName = root.Name;
+    }
+
+    var title = Model.Value<string>("seoTitle");
+    if (string.IsNullOrWhiteSpace(title))
+    {
+        title = Model.Name;
+    }
+
+    var description = Model.Value<string>("metaDescription");
+}
+<title>@title | @siteName</title>
+@if (!string.IsNullOrWhiteSpace(description))
+{
+    <meta name="description" content="@description">
+}
