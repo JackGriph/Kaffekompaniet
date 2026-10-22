@@ -1,0 +1,97 @@
+/*
+  Grundstil för Kaffekompaniet.
+  Stylar vanliga HTML-element direkt, så inga klasser behövs.
+  Kompileras till wwwroot/css/site.css vid build (dotnet run). Ändra aldrig i site.css.
+*/
+
+// Ändra färger här
+$text: #2b2118;
+$bakgrund: #faf7f2;
+$accent: #6f4e37;
+$kant: #e2d8cc;
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0 auto;
+  max-width: 900px;
+  padding: 1.5rem 1rem;
+  font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+  line-height: 1.6;
+  color: $text;
+  background: $bakgrund;
+}
+
+h1, h2, h3 {
+  line-height: 1.2;
+  color: $accent;
+}
+
+a {
+  color: $accent;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+header, footer {
+  padding: 1rem 0;
+  border-bottom: 1px solid $kant;
+}
+
+footer {
+  margin-top: 3rem;
+  border-top: 1px solid $kant;
+  border-bottom: 0;
+}
+
+nav ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th, td {
+  padding: 0.5rem;
+  text-align: left;
+  border-bottom: 1px solid $kant;
+}
+
+// Layout: skip-link för tangentbordsanvändare
+.skip-link {
+  position: absolute;
+  left: -9999px;
+
+  &:focus {
+    left: 1rem;
+    top: 1rem;
+    padding: 0.5rem 1rem;
+    background: $bakgrund;
+    border: 2px solid $accent;
+  }
+}
+
+.site-name {
+  margin: 0 0 0.5rem;
+  font-size: 1.5rem;
+
+  a {
+    text-decoration: none;
+  }
+}
+
+nav a[aria-current] {
+  font-weight: bold;
+}
