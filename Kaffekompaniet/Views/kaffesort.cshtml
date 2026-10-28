@@ -2,5 +2,50 @@
 @inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<ContentModels.Kaffesort>
 @using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
 @{
-	Layout = null;
+	Layout = "layout.cshtml";
+	var rubrik = string.IsNullOrWhiteSpace(Model.Rubrik) ? Model.Name : Model.Rubrik;
+	var bildAlt = Model.BildAltText ?? string.Empty;
 }
+
+<article class="kaffesort">
+	<h1>@rubrik</h1>
+
+	@if (Model.Bild != null)
+	{
+		<img src="@Model.Bild.Url()" alt="@bildAlt" />
+	}
+
+	<ul class="kaffesort__fakta">
+		@if (!string.IsNullOrWhiteSpace(Model.Ursprung))
+		{
+			<li>Ursprung: @Model.Ursprung</li>
+		}
+		@if (!string.IsNullOrWhiteSpace(Model.Rostningsgrad))
+		{
+			<li>Rostningsgrad: @Model.Rostningsgrad</li>
+		}
+		@if (Model.Smaknoter?.Any() == true)
+		{
+			<li>Smaknoter: @string.Join(", ", Model.Smaknoter)</li>
+		}
+		@if (!string.IsNullOrWhiteSpace(Model.Bryggmetod))
+		{
+			<li>Rekommenderad bryggmetod: @Model.Bryggmetod</li>
+		}
+		@if (!string.IsNullOrWhiteSpace(Model.Storlek))
+		{
+			<li>Storlek: @Model.Storlek</li>
+		}
+		@if (Model.Pris > 0)
+		{
+			<li>Pris: @Model.Pris kr</li>
+		}
+	</ul>
+
+	@Model.Beskrivning
+
+	@if (Model.Bryggguide != null)
+	{
+		<p><a href="@Model.Bryggguide.Url()">Så brygger du: @Model.Bryggguide.Name</a></p>
+	}
+</article>
