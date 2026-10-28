@@ -1,0 +1,26 @@
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage
+@*
+    Brödsmulor (ägs av E).
+    Visar vägen från Startsidan till sidan du är på. Visas inte på Startsidan.
+*@
+@{
+    var items = Model.AncestorsOrSelf().OrderBy(x => x.Level).ToList();
+}
+@if (items.Count > 1)
+{
+    <nav aria-label="Brödsmulor">
+        <ol>
+            @foreach (var item in items)
+            {
+                if (item.Id == Model.Id)
+                {
+                    <li><a href="@item.Url()" aria-current="page">@item.Name</a></li>
+                }
+                else
+                {
+                    <li><a href="@item.Url()">@item.Name</a></li>
+                }
+            }
+        </ol>
+    </nav>
+}
