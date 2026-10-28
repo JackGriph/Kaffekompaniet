@@ -3,24 +3,14 @@
 @using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
 @{
 	Layout = "layout.cshtml";
-	var root = Model.Root();
-	var siteName = root.Value<string>("siteName");
-	if (string.IsNullOrWhiteSpace(siteName))
-	{
-		siteName = root.Name;
-	}
 	var rubrik = string.IsNullOrWhiteSpace(Model.Rubrik) ? Model.Name : Model.Rubrik;
-	var sidtitel = string.IsNullOrWhiteSpace(Model.SeoTitle) ? Model.Name : Model.SeoTitle;
+	var bildAlt = Model.BildAltText ?? string.Empty;
 	var sv = new System.Globalization.CultureInfo("sv-SE");
 	var anmalan = Model.Anmalningslank?.FirstOrDefault();
 }
 
 @section Head {
-	<title>@sidtitel | @siteName</title>
-	@if (!string.IsNullOrWhiteSpace(Model.MetaDescription))
-	{
-		<meta name="description" content="@Model.MetaDescription">
-	}
+	@await Html.PartialAsync("Seo")
 }
 
 <article class="event">
@@ -37,9 +27,14 @@
 		<p class="event__plats">Plats: @Model.Plats</p>
 	}
 
+	@if (Model.AntalPlatser > 0)
+	{
+		<p class="event__platser">Antal platser: @Model.AntalPlatser</p>
+	}
+
 	@if (Model.Bild != null)
 	{
-		<img src="@Model.Bild.Url()" alt="@Model.BildAltText" />
+		<img src="@Model.Bild.Url()" alt="@bildAlt" />
 	}
 
 	@Model.Beskrivning
