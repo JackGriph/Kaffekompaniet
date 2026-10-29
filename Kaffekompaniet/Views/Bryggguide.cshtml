@@ -1,0 +1,58 @@
+﻿@using Umbraco.Cms.Web.Common.PublishedModels;
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<ContentModels.Bryggguide>
+@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+@{
+    Layout = "layout.cshtml";
+}
+<h1>@Model.Name</h1>
+@Model.Brodtext
+
+<h2>Fakta</h2>
+<ul>
+    @if (!string.IsNullOrWhiteSpace(Model.Svarighetsgrad))
+    {
+        <li>Svårighetsgrad: @Model.Svarighetsgrad</li>
+    }
+    @if (!string.IsNullOrWhiteSpace(Model.Malningsgrad))
+    {
+        <li>Malningsgrad: @Model.Malningsgrad</li>
+    }
+    @if (Model.KaffeGram > 0)
+    {
+        <li>Kaffe: @Model.KaffeGram g</li>
+    }
+    @if (Model.VattenMl > 0)
+    {
+        <li>Vatten: @Model.VattenMl ml</li>
+    }
+    @if (Model.Temperatur > 0)
+    {
+        <li>Temperatur: @Model.Temperatur °C</li>
+    }
+    @if (!string.IsNullOrWhiteSpace(Model.Tid))
+    {
+        <li>Tid: @Model.Tid</li>
+    }
+</ul>
+
+@if (Model.Utrustning?.Any() == true)
+{
+    <h2>Utrustning</h2>
+    <ul>
+        @foreach (var sak in Model.Utrustning)
+        {
+            <li>@sak</li>
+        }
+    </ul>
+}
+
+@if (Model.Steg?.Any() == true)
+{
+    <h2>Så gör du</h2>
+    <ol>
+        @foreach (var steg in Model.Steg)
+        {
+            <li>@steg</li>
+        }
+    </ol>
+}

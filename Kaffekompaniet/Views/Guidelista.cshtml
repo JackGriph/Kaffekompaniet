@@ -1,0 +1,24 @@
+﻿@using Umbraco.Cms.Web.Common.PublishedModels;
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<ContentModels.Guidelista>
+@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+@{
+	Layout = "layout.cshtml";
+	var guider = Model.Children().Where(x => x.IsVisible()).ToList();
+}
+
+<h1>@Model.Name</h1>
+@Model.Brodtext
+
+@if (guider.Any())
+{
+	<ul>
+		@foreach (var guide in guider)
+		{
+			<li><a href="@guide.Url()">@guide.Name</a></li>
+		}
+	</ul>
+}
+else
+{
+	<p>Inga bryggguider just nu.</p>
+}

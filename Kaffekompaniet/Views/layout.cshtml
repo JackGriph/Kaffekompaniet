@@ -6,8 +6,9 @@
     - Ingen h1 i layouten, varje sidmall har en egen h1.
     - Sajtnamn hämtas från root-noden, om det inte finns ett värde används root-nodens namn.
     - Skriver ut en skip-link för att hoppa till innehållet.
-    - Seo: title-taggar läggs i sidmallarna, @section Head {...} används för att skriva ut title-taggar i layouten.
-    - CSS: site.css används som gemensam css för alla sidor, den ligger i wwwroot/css/site.css.
+    - Seo: Partials/Seo.cshtml skrivs ut i head. En sidmall kan ersätta den med @section Head {...}.
+    - Brödsmulor: Partials/Brodsmulor.cshtml (E) skrivs ut först i main.
+    - CSS: kompileras från wwwroot/scss/site.scss till wwwroot/css/site.css.
 *@
 @{
     Layout = null;
@@ -29,7 +30,7 @@
     }
     else
     {
-        <title>@Model.Name | @siteName</title>
+        @await Html.PartialAsync("Seo")
     }
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true">
 </head>
@@ -42,6 +43,7 @@
     </header>
 
     <main id="main" tabindex="-1">
+        @await Html.PartialAsync("Brodsmulor")
         @RenderBody()
     </main>
 
