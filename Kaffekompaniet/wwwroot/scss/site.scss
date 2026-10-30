@@ -9,6 +9,12 @@ $text: #2b2118;
 $bakgrund: #faf7f2;
 $accent: #6f4e37;
 $kant: #e2d8cc;
+$text-svag: #5c4a3d; // metadata, t.ex. plats och avdelare i brödsmulor
+$yta: #ffffff; // bakgrund i faktarutor
+
+// Mått
+$radie: 6px;
+$mobil: 600px; // skärmar smalare än detta räknas som mobil
 
 * {
   box-sizing: border-box;
@@ -33,9 +39,31 @@ a {
   color: $accent;
 }
 
+// Synlig fokus för tangentbordsanvändare
+a, button {
+  &:focus-visible {
+    outline: 3px solid $accent;
+    outline-offset: 2px;
+  }
+}
+
 img {
+  display: block;
   max-width: 100%;
   height: auto;
+  margin: 1rem 0;
+  border-radius: $radie;
+}
+
+// Listor i innehållet, t.ex. bryggguidens fakta och steg
+main {
+  ul, ol {
+    padding-left: 1.25rem;
+  }
+
+  li {
+    margin-bottom: 0.35rem;
+  }
 }
 
 header, footer {
@@ -92,6 +120,87 @@ th, td {
   }
 }
 
-nav a[aria-current] {
+// Huvudmeny: aktuell sida ("page") och sektion ("true") syns tydligt
+nav[aria-label="Huvudmeny"] a {
+  text-decoration: none;
+
+  &:hover,
+  &[aria-current] {
+    text-decoration: underline;
+  }
+
+  &[aria-current] {
+    font-weight: bold;
+  }
+}
+
+// Brödsmulor på en rad: Startsida › Sektion › Sida
+nav[aria-label="Brödsmulor"] {
+  ol {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0 0 1rem;
+    padding: 0;
+    list-style: none;
+    font-size: 0.9rem;
+  }
+
+  li {
+    margin: 0;
+  }
+
+  li + li::before {
+    content: "›";
+    margin: 0 0.5rem;
+    color: $text-svag;
+  }
+
+  a[aria-current] {
+    font-weight: bold;
+    color: $text;
+    text-decoration: none;
+  }
+}
+
+// Kaffesort: faktalistan som en ruta
+.kaffesort__fakta {
+  margin: 1rem 0;
+  padding: 0;
+  list-style: none;
+  background: $yta;
+  border: 1px solid $kant;
+  border-radius: $radie;
+
+  li {
+    margin: 0;
+    padding: 0.5rem 1rem;
+    border-bottom: 1px solid $kant;
+
+    &:last-child {
+      border-bottom: 0;
+    }
+  }
+}
+
+// Event: tid och plats som tydlig metadata
+.event__tid {
   font-weight: bold;
+  color: $accent;
+}
+
+.event__plats,
+.event__platser {
+  margin: 0.25rem 0;
+  color: $text-svag;
+}
+
+// Mobil
+@media (max-width: $mobil) {
+  body {
+    padding: 1rem 0.75rem;
+  }
+
+  h1 {
+    font-size: 1.6rem;
+  }
 }
