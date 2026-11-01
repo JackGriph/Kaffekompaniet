@@ -2,5 +2,39 @@
 @inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<ContentModels.Eventlista>
 @using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
 @{
-	Layout = null;
+	Layout = "layout.cshtml";
+	var sv = new System.Globalization.CultureInfo("sv-SE");
+	var nu = DateTime.Now;
+	var kommande = Model.Children()
+		.OfType<ContentModels.Event>()
+		.Where(e => e.Starttid >= nu)
+		.OrderBy(e => e.Starttid)
+		.ToList();
+}
+
+<h1>@Model.Name</h1>
+@Model.Brodtext
+
+@if (kommande.Any())
+{
+	<ul class="eventlista">
+		@foreach (var ev in kommande)
+		{
+			var rubrik = string.IsNullOrWhiteSpace(ev.Rubrik) ? ev.Name : ev.Rubrik;
+			<li class="eventlista__item">
+				<a href="@ev.Url()">@rubrik</a>
+				<time datetime="@ev.Starttid.ToString("yyyy-MM-ddTHH:mm")">
+					@ev.Starttid.ToString("d MMMM yyyy 'kl.' HH:mm", sv)
+				</time>
+				@if (!string.IsNullOrWhiteSpace(ev.Plats))
+				{
+					<span class="eventlista__plats">@ev.Plats</span>
+				}
+			</li>
+		}
+	</ul>
+}
+else
+{
+	<p>Inga kommande event just nu.</p>
 }
