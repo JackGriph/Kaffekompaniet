@@ -5,6 +5,14 @@
     Layout = "layout.cshtml";
 }
 <h1>@Model.Name</h1>
+
+@if (Model.Bild != null)
+{
+    <img src="@Model.Bild.GetCropUrl(width: 800, height: 533)"
+         alt="@(Model.BildAltText ?? "")"
+         width="800" height="533" />
+}
+
 @Model.Brodtext
 
 <h2>Fakta</h2>
