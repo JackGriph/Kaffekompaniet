@@ -8,9 +8,9 @@
 
 @if (Model.Bild != null)
 {
-    <img src="@Model.Bild.GetCropUrl(width: 800, height: 533)"
+    <img src="@Model.Bild.GetCropUrl(width: 700, height: 700)"
          alt="@(Model.BildAltText ?? "")"
-         width="800" height="533" />
+         width="700" height="700" />
 }
 
 @Model.Brodtext
