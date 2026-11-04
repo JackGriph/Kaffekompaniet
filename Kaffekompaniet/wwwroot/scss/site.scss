@@ -6,33 +6,85 @@
 
 // Ändra färger här
 $text: #2b2118;
-$bakgrund: #faf7f2;
+$bakgrund: #f1e7d8;
 $accent: #6f4e37;
 $kant: #e2d8cc;
-$text-svag: #5c4a3d; // metadata, t.ex. plats och avdelare i brödsmulor
+$text-svag: #5c4a3d; // metadata, t.ex. plats
+$text-gra: #6b6259; // brödsmulor
 $yta: #ffffff; // bakgrund i faktarutor
+$kaffe-mork: #3b2a20; // header och footer
+$text-ljus: #faf3e8; // text på mörk bakgrund
+
+// Ändra typsnitt här
+$font-rubrik: "Fraunces", Georgia, serif;
+$font-brod: "Source Sans 3", system-ui, -apple-system, "Segoe UI", sans-serif;
+
+// Ändra fontstorlekar här
+$fs-sajtnamn: 1.75rem;
+$fs-h1: 2.25rem;
+$fs-h1-mobil: 1.75rem;
+$fs-h2: 1.5rem;
+$fs-brod: 1.0625rem;
+$fs-brodsmulor: 0.8125rem;
+$fs-meta: 0.9375rem;
 
 // Mått
 $radie: 6px;
 $mobil: 600px; // skärmar smalare än detta räknas som mobil
+$sidbredd: 900px;
+$sidmarginal: max(1rem, calc((100% - $sidbredd) / 2)); // bakgrund över hela bredden, innehållet centrerat
+
+// Typsnitten ligger i wwwroot/fonts/
+@font-face {
+  font-family: "Fraunces";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 100 900;
+  src: url("../fonts/fraunces-latin-wght-normal.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Source Sans 3";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 200 900;
+  src: url("../fonts/source-sans-3-latin-wght-normal.woff2") format("woff2");
+}
 
 * {
   box-sizing: border-box;
 }
 
+// Footern ligger längst ned även på korta sidor
 body {
-  margin: 0 auto;
-  max-width: 900px;
-  padding: 1.5rem 1rem;
-  font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  margin: 0;
+  font-family: $font-brod;
+  font-size: $fs-brod;
   line-height: 1.6;
   color: $text;
   background: $bakgrund;
 }
 
+main {
+  flex: 1;
+  padding: 1.5rem $sidmarginal 3rem;
+}
+
 h1, h2, h3 {
+  font-family: $font-rubrik;
   line-height: 1.2;
   color: $accent;
+}
+
+h1 {
+  font-size: $fs-h1;
+}
+
+h2 {
+  font-size: $fs-h2;
 }
 
 a {
@@ -64,23 +116,50 @@ main {
   li {
     margin-bottom: 0.35rem;
   }
+
+  // Texteditorn lägger varje punkt i ett eget stycke
+  li > p {
+    margin: 0;
+  }
 }
 
-header, footer {
-  padding: 1rem 0;
-  border-bottom: 1px solid $kant;
+// Mörk header och footer med ljus text
+body > header,
+body > footer {
+  padding: 1rem $sidmarginal;
+  color: $text-ljus;
+  background: $kaffe-mork;
+
+  a {
+    color: $text-ljus;
+
+    &:focus-visible {
+      outline-color: $text-ljus;
+    }
+  }
 }
 
-footer {
-  margin-top: 3rem;
-  border-top: 1px solid $kant;
-  border-bottom: 0;
+// Sajtnamnet till vänster, menyn till höger
+body > header {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.5rem 2rem;
+}
+
+body > footer {
+  font-size: $fs-meta;
+
+  p {
+    margin: 0;
+  }
 }
 
 nav ul {
   display: flex;
   flex-wrap: wrap;
-  gap: 1rem;
+  gap: 0.25rem 1rem;
   margin: 0;
   padding: 0;
   list-style: none;
@@ -112,8 +191,10 @@ th, td {
 }
 
 .site-name {
-  margin: 0 0 0.5rem;
-  font-size: 1.5rem;
+  margin: 0;
+  font-family: $font-rubrik;
+  font-size: $fs-sajtnamn;
+  line-height: 1.2;
 
   a {
     text-decoration: none;
@@ -142,7 +223,7 @@ nav[aria-label="Brödsmulor"] {
     margin: 0 0 1rem;
     padding: 0;
     list-style: none;
-    font-size: 0.9rem;
+    font-size: $fs-brodsmulor;
   }
 
   li {
@@ -152,12 +233,14 @@ nav[aria-label="Brödsmulor"] {
   li + li::before {
     content: "›";
     margin: 0 0.5rem;
-    color: $text-svag;
+    color: $text-gra;
+  }
+
+  a {
+    color: $text-gra;
   }
 
   a[aria-current] {
-    font-weight: bold;
-    color: $text;
     text-decoration: none;
   }
 }
@@ -191,16 +274,18 @@ nav[aria-label="Brödsmulor"] {
 .event__plats,
 .event__platser {
   margin: 0.25rem 0;
+  font-size: $fs-meta;
   color: $text-svag;
 }
 
-// Mobil
+// Mobil: menyn hamnar under sajtnamnet
 @media (max-width: $mobil) {
-  body {
-    padding: 1rem 0.75rem;
+  body > header {
+    flex-direction: column;
+    align-items: flex-start;
   }
 
   h1 {
-    font-size: 1.6rem;
+    font-size: $fs-h1-mobil;
   }
 }
