@@ -64,3 +64,22 @@
         }
     </ol>
 }
+
+@{
+    var kaffesorter = Model.Root()
+        .DescendantsOfType("kaffesort")
+        .OfType<Kaffesort>()
+        .Where(k => k.IsVisible() && k.Bryggguide?.Id == Model.Id)
+        .ToList();
+}
+
+@if (kaffesorter.Any())
+{
+    <h2>Passar till</h2>
+    <ul>
+        @foreach (var kaffe in kaffesorter)
+        {
+            <li><a href="@kaffe.Url()">@kaffe.Name</a></li>
+        }
+    </ul>
+}
