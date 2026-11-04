@@ -1,12 +1,13 @@
 @inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage
 @*
     Brödsmulor (ägs av E).
-    Visar vägen från Startsidan till sidan du är på. Visas inte på Startsidan.
+    Visar vägen från Startsidan till sidan du är på. Visas bara från nivå 3,
+    t.ex. på en kaffesort. Sidor på nivå 1 och 2 syns redan i menyn.
 *@
 @{
     var items = Model.AncestorsOrSelf().OrderBy(x => x.Level).ToList();
 }
-@if (items.Count > 1)
+@if (items.Count > 2)
 {
     <nav aria-label="Brödsmulor">
         <ol>
