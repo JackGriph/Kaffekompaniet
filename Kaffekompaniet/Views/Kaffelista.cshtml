@@ -11,21 +11,21 @@
 
 @if(kaffesorter.Any())
 {
-	<ul class="kaffekort">
+	<ul class="kort">
 		@foreach(var kaffe in kaffesorter)
 		{
 			<li>
-				<a class="kaffekort__lank" href="@kaffe.Url()">
-					<span class="kaffekort__bild">
+				<a class="kort__lank" href="@kaffe.Url()">
+					<span class="kort__bild">
 						@if (kaffe.Bild != null)
 						{
 							<img src="@kaffe.Bild.Url()" alt="@kaffe.BildAltText" />
 						}
-						<span class="kaffekort__etikett kaffekort__etikett--pris">@kaffe.Pris kr</span>
-						<span class="kaffekort__etikett kaffekort__etikett--vikt">@kaffe.Storlek</span>
+						<span class="kort__etikett kort__etikett--vanster">@kaffe.Pris kr</span>
+						<span class="kort__etikett kort__etikett--hoger">@kaffe.Storlek</span>
 					</span>
-					<span class="kaffekort__namn">@kaffe.Name</span>
-					<span class="kaffekort__rost">Rostning: @kaffe.Rostningsgrad</span>
+					<span class="kort__namn">@kaffe.Name</span>
+					<span class="kort__text">Rostning: @kaffe.Rostningsgrad</span>
 				</a>
 			</li>
 		}

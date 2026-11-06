@@ -290,8 +290,8 @@ nav[aria-label="Brödsmulor"] {
   }
 }
 
-// Kaffelista: kort med bild, pris och vikt
-.kaffekort {
+// Kort med bild, t.ex. i kaffelistan och guidelistan
+.kort {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
   gap: 1.25rem;
@@ -304,7 +304,7 @@ nav[aria-label="Brödsmulor"] {
   }
 }
 
-.kaffekort__lank {
+.kort__lank {
   display: block;
   height: 100%;
   overflow: hidden;
@@ -329,7 +329,7 @@ nav[aria-label="Brödsmulor"] {
   }
 }
 
-.kaffekort__bild {
+.kort__bild {
   position: relative;
   display: block;
   aspect-ratio: 3 / 2;
@@ -344,8 +344,8 @@ nav[aria-label="Brödsmulor"] {
   }
 }
 
-// Pris nere till vänster, vikt nere till höger
-.kaffekort__etikett {
+// Etiketter på bilden, nere till vänster eller höger
+.kort__etikett {
   position: absolute;
   bottom: 0.75rem;
   padding: 0.25rem 0.6rem;
@@ -355,16 +355,16 @@ nav[aria-label="Brödsmulor"] {
   background: $kaffe-mork;
   border-radius: $radie;
 
-  &--pris {
+  &--vanster {
     left: 0.75rem;
   }
 
-  &--vikt {
+  &--hoger {
     right: 0.75rem;
   }
 }
 
-.kaffekort__namn {
+.kort__namn {
   display: block;
   padding: 0.75rem 1rem 0;
   font-family: $font-rubrik;
@@ -372,7 +372,7 @@ nav[aria-label="Brödsmulor"] {
   color: $accent;
 }
 
-.kaffekort__rost {
+.kort__text {
   display: block;
   padding: 0 1rem 0.75rem;
   font-size: $fs-meta;
