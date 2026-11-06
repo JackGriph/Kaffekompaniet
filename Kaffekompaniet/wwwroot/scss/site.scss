@@ -289,3 +289,92 @@ nav[aria-label="Brödsmulor"] {
     font-size: $fs-h1-mobil;
   }
 }
+
+// Kort med bild, t.ex. i kaffelistan och guidelistan
+.kort {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 1.25rem;
+  margin: 1.5rem 0;
+  padding: 0;
+  list-style: none;
+
+  li {
+    margin: 0;
+  }
+}
+
+.kort__lank {
+  display: block;
+  height: 100%;
+  overflow: hidden;
+  color: $text;
+  text-decoration: none;
+  background: $yta;
+  border: 1px solid $kant;
+  border-radius: $radie;
+  transition: box-shadow 0.2s, transform 0.2s;
+
+  &:hover {
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+    transform: translateY(-3px);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
+
+    &:hover {
+      transform: none;
+    }
+  }
+}
+
+.kort__bild {
+  position: relative;
+  display: block;
+  aspect-ratio: 3 / 2;
+  background: $kant;
+
+  img {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    object-fit: cover;
+    border-radius: 0;
+  }
+}
+
+// Etiketter på bilden, nere till vänster eller höger
+.kort__etikett {
+  position: absolute;
+  bottom: 0.75rem;
+  padding: 0.25rem 0.6rem;
+  font-size: $fs-meta;
+  font-weight: 600;
+  color: $text-ljus;
+  background: $kaffe-mork;
+  border-radius: $radie;
+
+  &--vanster {
+    left: 0.75rem;
+  }
+
+  &--hoger {
+    right: 0.75rem;
+  }
+}
+
+.kort__namn {
+  display: block;
+  padding: 0.75rem 1rem 0;
+  font-family: $font-rubrik;
+  font-size: 1.25rem;
+  color: $accent;
+}
+
+.kort__text {
+  display: block;
+  padding: 0 1rem 0.75rem;
+  font-size: $fs-meta;
+  color: $text-svag;
+}
