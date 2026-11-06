@@ -3,7 +3,7 @@
 @using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
 @{
 	Layout = "layout.cshtml";
-	var kaffesorter = Model.Children().Where(x => x.IsVisible()).ToList();
+	var kaffesorter = Model.Children().Where(x => x.IsVisible()).OfType<Kaffesort>().ToList();
 }
 
 <h1>@Model.Name</h1>
@@ -11,10 +11,22 @@
 
 @if(kaffesorter.Any())
 {
-	<ul>
+	<ul class="kaffekort">
 		@foreach(var kaffe in kaffesorter)
 		{
-			<li><a href="@kaffe.Url()">@kaffe.Name</a></li>
+			<li>
+				<a class="kaffekort__lank" href="@kaffe.Url()">
+					<span class="kaffekort__bild">
+						@if (kaffe.Bild != null)
+						{
+							<img src="@kaffe.Bild.Url()" alt="@kaffe.BildAltText" />
+						}
+						<span class="kaffekort__etikett">@kaffe.Pris kr · @kaffe.Storlek</span>
+					</span>
+					<span class="kaffekort__namn">@kaffe.Name</span>
+					<span class="kaffekort__rost">Rostning: @kaffe.Rostningsgrad</span>
+				</a>
+			</li>
 		}
 	</ul>
 }
