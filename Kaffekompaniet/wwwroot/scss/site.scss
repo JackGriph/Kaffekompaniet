@@ -150,6 +150,7 @@ body > header {
 
 body > footer {
   font-size: $fs-meta;
+  text-align: center;
 
   p {
     margin: 0;
@@ -370,6 +371,11 @@ nav[aria-label="Brödsmulor"] {
   font-family: $font-rubrik;
   font-size: 1.25rem;
   color: $accent;
+
+  // Luft nedtill när namnet är sist i kortet, t.ex. bryggguider utan text
+  &:last-child {
+    padding-bottom: 0.75rem;
+  }
 }
 
 .kort__text {
