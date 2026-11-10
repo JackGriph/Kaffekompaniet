@@ -1,0 +1,12 @@
+@using Umbraco.Cms.Web.Common.PublishedModels;
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage
+@*
+    Visar sidans bild från kompositionen Sidbild (fälten bild och bildAltText).
+    Används på Startsida och Textsida. Utan bild visas ingenting.
+*@
+@if (Model is ISidbild sida && sida.Bild != null)
+{
+    <img src="@sida.Bild.GetCropUrl(width: 1200, height: 500)"
+         alt="@(sida.BildAltText ?? "")"
+         width="1200" height="500" />
+}
